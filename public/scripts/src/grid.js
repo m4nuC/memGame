@@ -13,6 +13,8 @@ var cell = require('./cell.js');
 
 var grid = (function() {
 
+    currentCell: null,
+
     _getShuffeledColors = function( colors ) {
         var shuffeledColors = [];
         colors = colors.concat( colors.slice() );
@@ -30,7 +32,7 @@ var grid = (function() {
         var colors = _getShuffeledColors( config.colors );
         var el = document.createElement( 'div' );
         for (var i = 0, lgth = colors.length ; i < lgth ; i++) {
-            var currCell = cell.create( colors[i]);
+            var currCell = cell.create( colors[i], i+1 );
             el.appendChild( currCell );
         };
         return el;
@@ -38,8 +40,32 @@ var grid = (function() {
 
     return {
         init: function() {
+            this._registerListeners();
+
             document.getElementById( 'game-board' )
                     .appendChild( _generateGrid() );
+        },
+
+        _registerListeners: function() {
+             $.subscribe("cellClicked", this, this._cellClickedCB);
+        },
+
+        _cellClickedCB: function( cell ) {
+            var self = this;
+            if ( self.currentCell ) {
+                if ( cell.getAttribute('data-color') ===
+                        self.currentCell.getAttribute('data-color') ) {
+                        $.publish("scoreInc");
+                        self.currentCell = null;
+                } else {
+                    setTimeout(function() {
+                        cell.className = self.currentCell.className = 'cell turned-over';
+                        self.currentCell = null;
+                    }, 800);
+                }
+            } else {
+                self.currentCell = cell;
+            }
         }
     }
 })();

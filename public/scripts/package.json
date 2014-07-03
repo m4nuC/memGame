@@ -30,6 +30,6 @@
     ]
   },
   "browserify-shim": {
-    "jquery": "global:$"
+    "jQuery": "global:$"
   }
 }

@@ -6,17 +6,25 @@
 
 var cell = (function() {
 
-    var _createCell = function( color ) {
+    var _createCell = function( color, id ) {
         var el = document.createElement('div');
         el.className = 'cell turned-over';
         el.style.backgroundColor = '#' + color;
-        el.setAttribute('data', 'color' );
+        el.setAttribute('data-color', color );
+        el.id = "cell-" + id;
+
+        $(el).on('click', function() {
+            if ( el.className.indexOf('turned-over') > -1 ) {
+                el.className = 'cell';
+                $.publish("cellClicked", el);
+            }
+        });
         return el;
     };
 
     return {
-        create: function(color) {
-            return _createCell( color);
+        create: function(color, id) {
+            return _createCell( color, id);
             //
         }
     }
