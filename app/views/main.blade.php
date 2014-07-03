@@ -10,7 +10,18 @@
 </head>
 
 <body>
-
+    <div id="main" class="main">
+        <div id="game-board" class="game-board">
+            <div class="cell"></div>
+        </div>
+        <div id="game-ui" class="game-ui">
+            <div class="logo"></div>
+            <div class="info"></div>
+            <div class="controls">
+                <button id="restart">
+            </div>
+        </div>
+    </div>
 </body>
 <script src="{{ asset('/scripts/build/game.js'); }}"></script>
 </html>

@@ -1,0 +1,25 @@
+.main {
+    width: 720px;
+    .game-board {
+        background-color: red;
+        width: 576px;
+        height: 576px;
+        float: left;
+        .cell {
+            float: left;
+            width: 140px;
+            height: 140px;
+            border: 2px solid white;
+        }
+    }
+    .game-ui {
+        float:right;
+        width: 124px;
+        height: 556px;
+        //margin-left: 10px;
+        padding: 10px;
+        background-color: blue;
+        .logo, .info, .controls {
+        }
+    }
+}
