@@ -3,7 +3,7 @@
  *
  */
 
-var Game = require('./game.js');
-
+var game = require('./game.js');
 // Create an instance of the game
+game.init();
 

@@ -7,8 +7,11 @@
  */
 
 
-var Game = function() {
-    //
+var game = function() {
+    return {
+        init: function() {
+            // WASSSUP
+        }
+    }
 };
-
-module.export = Game;
+module.exports = game;
