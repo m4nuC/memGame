@@ -1,0 +1,28 @@
+{
+  "name": "accedoMemGame",
+  "version": "0.0.1",
+  "description": "Memory game - Test part of Acccedo recruitment process",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "gulp": "~3.8.5",
+    "gulp-sass": "^0.7.2",
+    "browserify": "^4.2.0",
+    "gulp-livereload": "^2.1.0",
+    "gulp-autoprefixer": "0.0.8",
+    "gulp-browserify": "^0.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emmanuel Chappat",
+  "license": "ISC",
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  }
+}
