@@ -13,5 +13,8 @@
 
 Route::get('/', function()
 {
-	return View::make('main');
+    $baseURL = URL::to('/');
+    return View::make('main')->with(['baseURL'=>$baseURL]);
 });
+
+Route::resource('/scores', "ScoresController");

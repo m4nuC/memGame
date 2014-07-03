@@ -10,6 +10,11 @@
 </head>
 
 <body>
+    <script type="text/javascript">
+        var _GLOBALS = {
+            baseURL: "{{ $baseURL }}"
+        }
+    </script>
     <div id="main" class="main">
         <div id="game-board" class="game-board">
             <div class="cell"></div>
