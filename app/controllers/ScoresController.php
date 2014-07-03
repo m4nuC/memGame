@@ -8,8 +8,10 @@ class ScoresController extends \BaseController {
 	 * @return Response
 	 */
 	public function index()
-	{
-		return JSON_encode(['john'=>1, 'levis'=>2, 'mark'=>3]);
+    {
+        // I would normaly not user models right from the controllers
+        // but since the backend is really tiny that will do
+		return Score::all();
 	}
 
 
