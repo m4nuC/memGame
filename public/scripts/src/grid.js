@@ -11,9 +11,9 @@ var config = {
 
 var cell = require('./cell.js');
 
-var grid = (function() {
+var timeoutID = null;
 
-    currentCell: null,
+var grid = (function() {
 
     _getShuffeledColors = function( colors ) {
         var shuffeledColors = [];
@@ -39,6 +39,11 @@ var grid = (function() {
     };
 
     return {
+        currentCell: null,
+
+        flippedCell: null,
+
+
         init: function() {
             this._registerListeners();
 
@@ -52,27 +57,39 @@ var grid = (function() {
         },
 
         _gameRestart: function() {
-            self.currentCell = null;
+            this.currentCell = null;
+        },
+
+        _clearCurrentMove: function() {
         },
 
         _cellClickedCB: function( cell ) {
             var self = this;
-            if ( self.currentCell ) {
-                if ( cell.getAttribute('data-color') ===
-                        self.currentCell.getAttribute('data-color') ) {
+              // If timeout already exist then we need to reset the past move
+            timeoutID && self._cancelMoves() && window.clearTimeout(timeoutID);
+
+            self.currentCell = cell;
+
+            if ( self.flippedCell ) {
+                if (  self.flippedCell.getAttribute('data-color') ===
+                        cell.getAttribute('data-color') ) {
                         $.publish("scoreInc");
-                        self.currentCell = null;
+                        self.flippedCell = null;
                 } else {
-                    setTimeout(function() {
-                        console.log(self.currentCell);
-                        cell.className = self.currentCell.className = 'cell turned-over';
-                        $.publish("scoreDec");
-                        self.currentCell = null;
-                    }, 800);
+                    timeoutID = setTimeout(function() {
+                        self._cancelMoves();
+                    }, 1000);
                 }
             } else {
-                self.currentCell = cell;
+                self.flippedCell = cell;
             }
+        },
+
+        _cancelMoves: function() {
+            this.currentCell.className = this.flippedCell.className = 'cell turned-over';
+            $.publish("scoreDec");
+            this.flippedCell = this.currentCell = null;
+            timeoutID = null;
         }
     }
 })();
