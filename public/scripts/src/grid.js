@@ -38,10 +38,8 @@ var grid = (function() {
 
     return {
         init: function() {
-            _generateGrid();
-            console.log( );
-            //document.getElementById( 'game-board' )
-             //       .appendChild( _generateGrid() );
+            document.getElementById( 'game-board' )
+                    .appendChild( _generateGrid() );
         }
     }
 })();

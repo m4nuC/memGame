@@ -17,7 +17,6 @@
     </script>
     <div id="main" class="main">
         <div id="game-board" class="game-board">
-            <div class="cell"></div>
         </div>
         <div id="game-ui" class="game-ui">
             <div class="logo"></div>

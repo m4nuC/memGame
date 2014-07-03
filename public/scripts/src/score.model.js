@@ -13,8 +13,9 @@ var scoreModel = (function(DOMlib) {
         highScore: {
         },
 
+        // Returns a promise
         fetch: function() {
-            DOMlib.getJSON( _GLOBALS.baseURL + "/scores")
+            return DOMlib.getJSON( _GLOBALS.baseURL + "/scores")
                 .then( this._setHighScores );
         },
 
