@@ -24,7 +24,8 @@ var scoreModel = (function(DOMlib) {
         },
 
         _setHighScores: function( data ) {
-            this.highScore = data
+            this.highScore = data;
+            return data;
         }
     }
 })( $ );

@@ -25,22 +25,33 @@ var game = (function() {
         init: function() {
             this._registerEvents();
 
-            // Store the score display el
+            // Store DOM elements
             this.scoreDisplay = document.getElementById('score-count');
 
             // Init the grid
             grid.init();
 
             // Fetch the scores
-             _scores = scoresModel.fetch();
-
-            // Once Initial Scores are fetched start the game
-            _scores.then( this.start );
-
+             scoresModel.fetch()
+                .then(this._populateScores )
+                .then( this.start);
         },
 
         start: function() {
             window._GLOBALS.debug && console.log('GAME STARTING');
+        },
+
+        _populateScores: function( scores ) {
+            _scores = scores;
+            var html = "";
+            window._GLOBALS.debug && console.log('POPULATE SCORES');
+            for( var name in _scores ) {
+                var pts = _scores[name];
+                html += '<p>' + name + ': ' + pts + ' point';
+                html += pts > 1 ? 's </p>' : '</p>';
+            }
+            var highScores = document.getElementById('high-scores');
+            highScores.innerHTML = html;
         },
 
         _registerEvents: function() {

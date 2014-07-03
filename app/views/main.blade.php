@@ -24,7 +24,11 @@
             <div class="info">
                 <p class="instructions">Click on the cards to try to find a color pair.</p>
 
-                <p class="score">Score<br><span id="score-count">0</p>
+                <h1 class="score">Score<br><span id="score-count">0</h1>
+                <h2> Top 5 </h2>
+                <div id="high-scores">
+
+                </div>
             </div>
             <div class="controls">
                 <button id="restart">Restart</button>

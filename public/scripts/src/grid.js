@@ -66,7 +66,7 @@ var grid = (function() {
         _cellClickedCB: function( cell ) {
             var self = this;
               // If timeout already exist then we need to reset the past move
-            timeoutID && self._cancelMoves() && window.clearTimeout(timeoutID);
+            timeoutID && self._cancelMoves();
 
             self.currentCell = cell;
 
@@ -89,6 +89,7 @@ var grid = (function() {
             this.currentCell.className = this.flippedCell.className = 'cell turned-over';
             $.publish("scoreDec");
             this.flippedCell = this.currentCell = null;
+            timeoutID && window.clearTimeout(timeoutID);
             timeoutID = null;
         }
     }
