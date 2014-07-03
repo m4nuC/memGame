@@ -10,7 +10,7 @@ var livereload = require('gulp-livereload');
 // Constants
 var STYLE_FOLDER = '../statics/styles/';
 var JS_BOOTSTRAP = './src/bootstrap.js';
-var DEBUG = false;
+var DEBUG = true;
 
 gulp.task('sass', function () {
     gulp.src(STYLE_FOLDER + 'scss/*.scss')
