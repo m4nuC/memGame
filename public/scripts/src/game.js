@@ -23,7 +23,7 @@ var game = (function() {
         score: 0,
 
         init: function() {
-            this._registerListeners();
+            this._registerEvents();
 
             // Store the score display el
             this.scoreDisplay = document.getElementById('score-count');
@@ -44,8 +44,22 @@ var game = (function() {
         },
 
         _registerEvents: function() {
-            $.subscribe("scoreInc", this, this._scoreAddOne );
-            $.subscribe("scoreDec", this, this._scoreRemoveOne );
+            var self = this;
+            $.subscribe("scoreInc", self, self._scoreAddOne );
+            $.subscribe("scoreDec", self, self._scoreRemoveOne );
+            $('#restart').click( function(e) {
+                e.preventDefault();
+                self._restartGame();
+            });
+        },
+
+        _restartGame: function() {
+            this.score = 0;
+            this._refreshScoreDisplay(this.score);
+            $('.cell').addClass("turned-over");
+            
+            $.publish('gameRestart');
+
         },
 
         _scoreAddOne: function( point ) {

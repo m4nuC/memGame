@@ -48,6 +48,11 @@ var grid = (function() {
 
         _registerListeners: function() {
              $.subscribe("cellClicked", this, this._cellClickedCB);
+             $.subscribe("gameRestart", this, this._gameRestart);
+        },
+
+        _gameRestart: function() {
+            self.currentCell = null;
         },
 
         _cellClickedCB: function( cell ) {
