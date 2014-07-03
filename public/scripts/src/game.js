@@ -18,10 +18,15 @@ var game = (function() {
 
     return {
 
+        scoreDisplay: null,
+
         score: 0,
 
         init: function() {
             this._registerListeners();
+
+            // Store the score display el
+            this.scoreDisplay = document.getElementById('score-count');
 
             // Init the grid
             grid.init();
@@ -38,15 +43,25 @@ var game = (function() {
             window._GLOBALS.debug && console.log('GAME STARTING');
         },
 
-        _registerListeners: function() {
-            $.subscribe("scoreInc", this, this._scoreAdd );
+        _registerEvents: function() {
+            $.subscribe("scoreInc", this, this._scoreAddOne );
+            $.subscribe("scoreDec", this, this._scoreRemoveOne );
         },
 
-        _scoreAdd: function( point ) {
-            console.log(this.score);
+        _scoreAddOne: function( point ) {
             this.score ++;
-            console.log(this.score);
+            this._refreshScoreDisplay(this.score);
 
+        },
+
+        _scoreRemoveOne: function( point ) {
+            this.score !== 0 && this.score--;
+            this._refreshScoreDisplay(this.score);
+         },
+
+        _refreshScoreDisplay: function( score ) {
+            score = score || 0;
+            this.scoreDisplay.innerText = score;
         }
     }
 })();

@@ -1,0 +1,14 @@
+.game-ui{
+    color: white;
+    .logo {
+        img {
+            width: 100%;
+        }
+    }
+    .score {
+        line-height: 50px;
+        text-align: center;
+        font-size: 260%;
+        margin: 30px 0;
+    }
+}

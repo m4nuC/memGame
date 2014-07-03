@@ -59,7 +59,9 @@ var grid = (function() {
                         self.currentCell = null;
                 } else {
                     setTimeout(function() {
+                        console.log(self.currentCell);
                         cell.className = self.currentCell.className = 'cell turned-over';
+                        $.publish("scoreDec");
                         self.currentCell = null;
                     }, 800);
                 }

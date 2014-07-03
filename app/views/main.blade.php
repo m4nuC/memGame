@@ -12,17 +12,22 @@
 <body>
     <script type="text/javascript">
         var _GLOBALS = {
-            baseURL: "{{ $baseURL }}"
+            baseURL: "{{ $baseURL }}",
+            debug: true
         }
     </script>
     <div id="main" class="main">
         <div id="game-board" class="game-board">
         </div>
         <div id="game-ui" class="game-ui">
-            <div class="logo"></div>
-            <div class="info"></div>
+            <div class="logo"><img src="{{ asset('/statics/imgs/logo.png'); }}"></div>
+            <div class="info">
+                <p class="instructions">Click on the cards to try to find a color pair.</p>
+
+                <p class="score">Score<br><span id="score-count">0</p>
+            </div>
             <div class="controls">
-                <button id="restart">
+                <button id="restart">Restart</button>
             </div>
         </div>
     </div>
