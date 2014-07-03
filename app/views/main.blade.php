@@ -12,8 +12,7 @@
 <body>
 
 </body>
-<script src="/scripts/build/jquery.js"></script>
-<script src="/scripts/build/game.js"></script>
+<script src="{{ asset('/scripts/build/game.js'); }}"></script>
 </html>
 
 

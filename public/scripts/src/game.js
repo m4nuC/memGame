@@ -7,11 +7,11 @@
  */
 
 
-var game = function() {
+var game = (function() {
     return {
         init: function() {
             // WASSSUP
         }
     }
-};
+})();
 module.exports = game;
