@@ -23,6 +23,7 @@
         </div>
     </div>
 </body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="{{ asset('/scripts/build/game.js'); }}"></script>
 </html>
 
