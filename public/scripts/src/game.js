@@ -24,7 +24,7 @@ var game = (function() {
         },
 
         start: function() {
-            console.log('GAME STARTING');
+            window._GLOBALS.debug && console.log('GAME STARTING');
         }
     }
 })();

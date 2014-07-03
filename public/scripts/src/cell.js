@@ -8,7 +8,7 @@ var cell = (function() {
 
     var _createCell = function( color ) {
         var el = document.createElement('div');
-        el.className = 'cell';
+        el.className = 'cell turned-over';
         el.style.backgroundColor = '#' + color;
         el.setAttribute('data', 'color' );
         return el;
@@ -16,7 +16,6 @@ var cell = (function() {
 
     return {
         create: function(color) {
-            console.log(color);
             return _createCell( color);
             //
         }
