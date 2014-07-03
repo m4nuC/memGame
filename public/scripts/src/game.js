@@ -20,6 +20,8 @@ var game = (function() {
 
         scoreDisplay: null,
 
+        pairFound: 0,
+
         score: 0,
 
         init: function() {
@@ -28,13 +30,25 @@ var game = (function() {
             // Store DOM elements
             this.scoreDisplay = document.getElementById('score-count');
 
-            // Init the grid
+            // Generate random color grid
             grid.init();
 
             // Fetch the scores
              scoresModel.fetch()
                 .then(this._populateScores )
                 .then( this.start);
+        },
+
+        _registerEvents: function() {
+            var self = this;
+            $.subscribe("scoreInc", self, self._scoreAddOne );
+            $.subscribe("scoreDec", self, self._scoreRemoveOne );
+            $.subscribe("pairFound", self, self._pairFoundCB );
+
+            $('#restart').click( function(e) {
+                e.preventDefault();
+                self._restartGame();
+            });
         },
 
         start: function() {
@@ -54,29 +68,21 @@ var game = (function() {
             highScores.innerHTML = html;
         },
 
-        _registerEvents: function() {
-            var self = this;
-            $.subscribe("scoreInc", self, self._scoreAddOne );
-            $.subscribe("scoreDec", self, self._scoreRemoveOne );
-            $('#restart').click( function(e) {
-                e.preventDefault();
-                self._restartGame();
-            });
+        _pairFoundCB: function() {
+            this.pairFound ++;
+            this.pairFound === 8 && this._gameCompleted();
         },
 
         _restartGame: function() {
             this.score = 0;
             this._refreshScoreDisplay(this.score);
             $('.cell').addClass("turned-over");
-            
             $.publish('gameRestart');
-
         },
 
         _scoreAddOne: function( point ) {
             this.score ++;
             this._refreshScoreDisplay(this.score);
-
         },
 
         _scoreRemoveOne: function( point ) {
@@ -87,6 +93,23 @@ var game = (function() {
         _refreshScoreDisplay: function( score ) {
             score = score || 0;
             this.scoreDisplay.innerText = score;
+        },
+
+        _gameCompleted: function() {
+            var newGame = confirm('Well done Sir!\n Do you wanna go again?');
+            newGame && this._restartGame();
+        },
+
+        _isHighScore: function() {
+            _scores.isHighScore(this.score) && this._newHighScore();
+        },
+
+        _newHighScore: function() {
+            var name = prompt("Congrats, you have made it to the high score.\n Please enter your name", "Gandalf");
+            _scores
+                .addHighScore(name, this.score)
+                .save()
+                ._populateScores();
         }
     }
 })();

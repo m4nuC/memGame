@@ -74,6 +74,7 @@ var grid = (function() {
                 if (  self.flippedCell.getAttribute('data-color') ===
                         cell.getAttribute('data-color') ) {
                         $.publish("scoreInc");
+                        $.publish("pairFound");
                         self.flippedCell = null;
                 } else {
                     timeoutID = setTimeout(function() {
