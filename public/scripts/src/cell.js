@@ -13,15 +13,17 @@ var cell = (function() {
         el.setAttribute('data-color', color );
         el.id = "cell-" + id;
 
-        $(el).on('click', function() {
-            if ( el.className.indexOf('turned-over') > -1 ) {
-                el.className = 'cell';
-                $.publish("cellClicked", el);
-            }
-        });
+        $(el).on('click',eventHandler);
         return el;
     };
 
+    var eventHandler = function(e) {
+        el = e.target;
+        if ( el.className.indexOf('turned-over') > -1) {
+            el.className = 'cell';
+            $.publish("cellClicked", el);
+        }
+    }
     return {
         create: function(color, id) {
             return _createCell( color, id);

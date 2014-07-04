@@ -56,14 +56,14 @@ var grid = (function() {
         _registerListeners: function() {
             $.subscribe( "cellClicked", this, this._cellClickedCB );
             $.subscribe( "gameRestart", this, this._gameRestart );
-            $(document).keydown( this._moveFocusedCell.bind(this) );
+            $(document).keydown( this._keyEvents.bind(this) );
         },
 
         _gameRestart: function() {
             this.currentCell = null;
         },
 
-        _moveFocusedCell: function( event ) {
+        _keyEvents: function( event ) {
             var c = event.keyCode;
             switch(c) {
                 // left
@@ -81,6 +81,10 @@ var grid = (function() {
                 // bottom
                 case 40:
                     this.focusedCellID = this.focusedCellID > 12 ? this.focusedCellID - 12 : this.focusedCellID + 4;
+                    break;
+                // enter
+                case 13:
+                    $( '#cell-' + this.focusedCellID).click();
                     break;
             }
 
@@ -108,10 +112,11 @@ var grid = (function() {
                         $.publish( "scoreInc" );
                         $.publish( "pairFound" );
                         self.flippedCell = null;
+                        self._setCellFocus();
                 } else {
                     timeoutID = setTimeout(function() {
                         self._cancelMoves();
-                    }, 1000);
+                    }, 700);
                 }
             } else {
                 self.flippedCell = cell;
