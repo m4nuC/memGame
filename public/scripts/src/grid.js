@@ -44,22 +44,54 @@ var grid = (function() {
 
         flippedCell: null,
 
+        focusedCellID: 1,
+
         init: function() {
             this._registerListeners();
             document.getElementById( 'game-board' )
                     .appendChild( _generateGrid() );
+            this._setCellFocus();
         },
 
         _registerListeners: function() {
-             $.subscribe( "cellClicked", this, this._cellClickedCB );
-             $.subscribe( "gameRestart", this, this._gameRestart );
+            $.subscribe( "cellClicked", this, this._cellClickedCB );
+            $.subscribe( "gameRestart", this, this._gameRestart );
+            $(document).keydown( this._moveFocusedCell.bind(this) );
         },
 
         _gameRestart: function() {
             this.currentCell = null;
         },
 
-        _clearCurrentMove: function() {
+        _moveFocusedCell: function( event ) {
+            var c = event.keyCode;
+            switch(c) {
+                // left
+                case 37:
+                    this.focusedCellID = this.focusedCellID === 1 ? 16 : this.focusedCellID - 1;
+                    break;
+                // top
+                case 38:
+                    this.focusedCellID = this.focusedCellID < 5 ? this.focusedCellID + 12 : this.focusedCellID - 4;
+                    break;
+                // right
+                case 39:
+                    this.focusedCellID = this.focusedCellID === 16 ? 1 : this.focusedCellID + 1;
+                    break;
+                // bottom
+                case 40:
+                    this.focusedCellID = this.focusedCellID > 12 ? this.focusedCellID - 12 : this.focusedCellID + 4;
+                    break;
+            }
+
+            this._setCellFocus();
+        },
+
+        _setCellFocus: function( context ) {
+            context = context || document;
+            $('.cell').removeClass('active');
+            $( '#cell-' + this.focusedCellID, context).addClass('active');
+            return this;
         },
 
         _cellClickedCB: function( cell ) {
@@ -92,6 +124,7 @@ var grid = (function() {
             this.flippedCell = this.currentCell = null;
             timeoutID && window.clearTimeout( timeoutID );
             timeoutID = null;
+            this._setCellFocus();
         }
     }
 })();
