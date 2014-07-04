@@ -46,21 +46,24 @@ var grid = (function() {
 
         focusedCellID: 1,
 
+        gameBoard : document.getElementById( 'game-board' ),
+
         init: function() {
             this._registerListeners();
-            document.getElementById( 'game-board' )
-                    .appendChild( _generateGrid() );
+            this.gameBoard.innerHTML  = "";
+            this.gameBoard.appendChild(_generateGrid());
             this._setCellFocus();
         },
 
         _registerListeners: function() {
             $.subscribe( "cellClicked", this, this._cellClickedCB );
-            $.subscribe( "gameRestart", this, this._gameRestart );
             $(document).keydown( this._keyEvents.bind(this) );
         },
 
         _gameRestart: function() {
-            this.currentCell = null;
+            this.currentCell = this.flippedCell = null;
+            this.gameBoard.innerHTML  = "";
+            this.gameBoard.appendChild(_generateGrid());
         },
 
         _keyEvents: function( event ) {

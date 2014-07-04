@@ -59,7 +59,6 @@ var game = (function() {
         _populatScores: function() {
             var html = "";
             var scoreCount = _scores.highScores.length;
-            window._GLOBALS.debug && console.log('POPULATE SCORES');
             if ( scoreCount > 0 ) {
                 for (var i = 0; i < scoreCount; i++) {
                     var pts = _scores.highScores[i].points;
@@ -80,11 +79,8 @@ var game = (function() {
 
         _restartGame: function() {
             this.score = 0;
+            grid._gameRestart();
             this._refreshScoreDisplay(this.score);
-            $('.cell').addClass("turned-over");
-            $.publish('gameRestart');
-                this._newHighScore();
-
         },
 
         _scoreAddOne: function( point ) {
