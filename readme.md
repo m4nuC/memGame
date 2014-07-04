@@ -14,6 +14,9 @@ Live Demo [here](http://stage.nota.io/)
 - From the terminal run: "php artisan serve".
 - Open a browser and go to [http://localhost:8000/](http://localhost:8000/) to play.
 
+### Development
+- `cd` into `public/scripts` and run `gulp dev` to get in watch mode and auto compilte (CSS and JS)
+- `cd` into `public/scripts` and run `gulp build` to create a minified build files
 
 ## Requirements
 
