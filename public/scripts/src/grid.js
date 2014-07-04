@@ -1,6 +1,7 @@
 /**
  * Grid Object
- * Responsible for creating the grid from a configuration object
+ * 1 - Create a random grid from the configuration object
+ * 2 - Register keyboard controls
  */
 
 // Configuration Object
@@ -20,8 +21,8 @@ var grid = (function() {
         colors = colors.concat( colors.slice() );
         var length = colors.length;
         do {
-            var rand = Math.floor(Math.random() *  length);
-            shuffeledColors.push(colors.splice(rand, 1)[0]);
+            var rand = Math.floor( Math.random() *  length );
+            shuffeledColors.push( colors.splice(rand, 1)[0] );
             length = colors.length;
         }
         while ( length!= 0 )
@@ -43,17 +44,15 @@ var grid = (function() {
 
         flippedCell: null,
 
-
         init: function() {
             this._registerListeners();
-
             document.getElementById( 'game-board' )
                     .appendChild( _generateGrid() );
         },
 
         _registerListeners: function() {
-             $.subscribe("cellClicked", this, this._cellClickedCB);
-             $.subscribe("gameRestart", this, this._gameRestart);
+             $.subscribe( "cellClicked", this, this._cellClickedCB );
+             $.subscribe( "gameRestart", this, this._gameRestart );
         },
 
         _gameRestart: function() {
@@ -65,6 +64,7 @@ var grid = (function() {
 
         _cellClickedCB: function( cell ) {
             var self = this;
+
               // If timeout already exist then we need to reset the past move
             timeoutID && self._cancelMoves();
 
@@ -73,8 +73,8 @@ var grid = (function() {
             if ( self.flippedCell ) {
                 if (  self.flippedCell.getAttribute('data-color') ===
                         cell.getAttribute('data-color') ) {
-                        $.publish("scoreInc");
-                        $.publish("pairFound");
+                        $.publish( "scoreInc" );
+                        $.publish( "pairFound" );
                         self.flippedCell = null;
                 } else {
                     timeoutID = setTimeout(function() {
@@ -88,9 +88,9 @@ var grid = (function() {
 
         _cancelMoves: function() {
             this.currentCell.className = this.flippedCell.className = 'cell turned-over';
-            $.publish("scoreDec");
+            $.publish( "scoreDec" );
             this.flippedCell = this.currentCell = null;
-            timeoutID && window.clearTimeout(timeoutID);
+            timeoutID && window.clearTimeout( timeoutID );
             timeoutID = null;
         }
     }

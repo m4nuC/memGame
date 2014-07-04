@@ -1,6 +1,6 @@
 <?php
 
-class ScoresController extends \BaseController {
+class ScoresController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -11,7 +11,7 @@ class ScoresController extends \BaseController {
     {
         // I would normaly not user models right from the controllers
         // but since the backend is really tiny that will do
-		return Score::all();
+		return Score::orderBy('points', 'DESC')->get()->toArray();
 	}
 
 
@@ -32,8 +32,15 @@ class ScoresController extends \BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{
-		//
+    {
+        // Mass assignment + no filtering for XSS (Mysql Injection is taken care off by laravel tho)
+        // not very secure, but this is only for the demo
+        $inputs = json_decode(Input::get('data'),TRUE);
+        Score::truncate();
+        foreach ($inputs as $input )
+        {
+            Score::create($input);
+        }
 	}
 
 

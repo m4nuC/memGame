@@ -1,9 +1,7 @@
 /**
  * Game Object
- * 1 - serves as global scope for: currentTile, Score, Turns
+ * 1 - Manages game scope: pairFound, Scores
  * 2 - Spawn Grid
- * 3 - Generate Mediator Object
- * 4 -
  */
 var scoresModel = require('./score.model.js');
 var grid = require('./grid.js');
@@ -17,8 +15,6 @@ var game = (function() {
     var _scores = null;
 
     return {
-
-        scoreDisplay: null,
 
         pairFound: 0,
 
@@ -35,7 +31,8 @@ var game = (function() {
 
             // Fetch the scores
              scoresModel.fetch()
-                .then(this._populateScores )
+                .then( this._setScores )
+                .then( this._populatScores )
                 .then( this.start);
         },
 
@@ -55,14 +52,22 @@ var game = (function() {
             window._GLOBALS.debug && console.log('GAME STARTING');
         },
 
-        _populateScores: function( scores ) {
+        _setScores: function( scores ) {
             _scores = scores;
+        },
+
+        _populatScores: function() {
             var html = "";
+            var scoreCount = _scores.highScores.length;
             window._GLOBALS.debug && console.log('POPULATE SCORES');
-            for( var name in _scores ) {
-                var pts = _scores[name];
-                html += '<p>' + name + ': ' + pts + ' point';
-                html += pts > 1 ? 's </p>' : '</p>';
+            if ( scoreCount > 0 ) {
+                for (var i = 0; i < scoreCount; i++) {
+                    var pts = _scores.highScores[i].points;
+                    html += '<p>' + _scores.highScores[i].name + ': ' + pts + ' point';
+                    html += pts > 1 ? 's </p>' : '</p>';
+                };
+            } else {
+                html = '<p> No high Score Yet </p>'
             }
             var highScores = document.getElementById('high-scores');
             highScores.innerHTML = html;
@@ -78,6 +83,8 @@ var game = (function() {
             this._refreshScoreDisplay(this.score);
             $('.cell').addClass("turned-over");
             $.publish('gameRestart');
+                this._newHighScore();
+
         },
 
         _scoreAddOne: function( point ) {
@@ -96,7 +103,7 @@ var game = (function() {
         },
 
         _gameCompleted: function() {
-            var newGame = confirm('Well done Sir!\n Do you wanna go again?');
+            var newGame = confirm('Well done Sir!\nDo you wanna go again?');
             newGame && this._restartGame();
         },
 
@@ -105,11 +112,11 @@ var game = (function() {
         },
 
         _newHighScore: function() {
-            var name = prompt("Congrats, you have made it to the high score.\n Please enter your name", "Gandalf");
+            var name = prompt("Congrats, you have made it to the high score.\nPlease enter your name", "Gandalf");
             _scores
                 .addHighScore(name, this.score)
                 .save()
-                ._populateScores();
+                .then( this._populatScores );
         }
     }
 })();

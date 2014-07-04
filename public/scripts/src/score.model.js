@@ -10,61 +10,39 @@ var scoreModel = (function(DOMlib) {
         currentScore: null,
 
         // Stores the current high scores using "playerName:value" format
-        highScore: {
-        },
+        highScores: [],
 
         // Returns a promise
         fetch: function() {
             return DOMlib.getJSON( _GLOBALS.baseURL + "/scores")
-                .then( this._setHighScores );
+                .then( this._setHighScores.bind(this) );
         },
 
         save: function() {
+            var data = JSON.stringify(this.highScores);
             return DOMlib.ajax({
-                    method: "PUT",
+                    method: "POST",
                     url: _GLOBALS.baseURL + "/scores",
-                    data: this.highScore
-                })
+                    data: "data=" + data
+            })
         },
 
-        _setHighScores: function( data ) {
-            this.highScore = data;
-            return data;
+        _setHighScores: function(data) {
+            this.highScores = data;
+            return this;
         },
 
-        // @TODO Deal with case where new score is equal to lower high score.
         _isHighScore: function( score ) {
-            var smaller = 8;
-            for( var name in this.highScore ) {
-                var s = this.highScore[name];
-                if ( s < score ) {
-                    return true;
-                }
-            }
-            return false;
+            var l = this.highScores.length;
+            return this.highScores[l-1] <= score;
         },
-
 
         addHighScore: function(name, score) {
-            this.highScore.push({ name: score });
-            this._deleteSmallest();
+            var newScore = {"name": name, "points": score};
+            this.highScores.length > 4 && this.highScores.pop();
+            this.highScores.push(newScore);
+            return this;
         },
-
-        _deleteSmallest: function() {
-            var smaller = 8;
-            var smallerName = null;
-            for( var name in this.highScore ) {
-                var s = this.highScore[name];
-                if ( s < smaller ) {
-                    smaller = s;
-                    smallerName = name;
-                // In case of equality we'll remove the night that is the higher in the alphabet
-                } else if( s === smaller ) {
-                     smallerName = name >= smallerName ? name : smallerName;
-                }
-            }
-            delete this.highScore[smallerName];
-        }
     }
 })( $ );
 

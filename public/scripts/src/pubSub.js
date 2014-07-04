@@ -1,8 +1,5 @@
 // Based of http://www.bennadel.com/blog/2037-simple-publication-and-subscription-functionality-pub-sub-with-jquery.htm
 
-// Define the publish and subscribe jQuery extensions.
-// These will allow for pub-sub without the overhead
-// of DOM-related eventing.
 (function( $ ){
 
     // Create a collection of subscriptions which are just a
