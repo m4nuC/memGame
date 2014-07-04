@@ -62,8 +62,8 @@ var game = (function() {
             if ( scoreCount > 0 ) {
                 for (var i = 0; i < scoreCount; i++) {
                     var pts = _scores.highScores[i].points;
-                    html += '<p>' + _scores.highScores[i].name + ': ' + pts + ' point';
-                    html += pts > 1 ? 's </p>' : '</p>';
+                    html += '<p><span class="name">' + _scores.highScores[i].name + ':</span><span class="points">' + pts + ' point';
+                    html += pts > 1 ? 's </span></p>' : '</span></p>';
                 };
             } else {
                 html = '<p> No high Score Yet </p>'

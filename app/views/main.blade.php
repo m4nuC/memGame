@@ -22,11 +22,12 @@
         <div id="game-ui" class="game-ui">
             <div class="logo"><img src="{{ asset('/statics/imgs/logo.png'); }}"></div>
             <div class="info">
-                <p class="instructions">Click on the cards to try to find a color pair.</p>
+                <p class="instructions">1) Use directional arrows to select a card.<br>2) Use "Enter" or "left click" to flip a card</p>
+
 
                 <h1 class="score">Score<br><span id="score-count">0</h1>
                 <h2> Top 5 </h2>
-                <div id="high-scores">
+                <div id="high-scores" class="high-scores">
 
                 </div>
             </div>
