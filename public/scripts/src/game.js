@@ -49,7 +49,7 @@ var game = (function() {
         },
 
         start: function() {
-            window._GLOBALS.debug && console.log('GAME STARTING');
+            //window._GLOBALS.debug && console.log('GAME STARTING');
         },
 
         _setScores: function( scores ) {
@@ -95,7 +95,7 @@ var game = (function() {
 
         _refreshScoreDisplay: function( score ) {
             score = score || 0;
-            this.scoreDisplay.innerText = score;
+           this.scoreDisplay.innerHTML = score;
         },
 
         _gameCompleted: function() {

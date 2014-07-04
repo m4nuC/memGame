@@ -13,7 +13,7 @@
     <script type="text/javascript">
         var _GLOBALS = {
             baseURL: "{{ $baseURL }}",
-            debug: true
+            debug: false
         }
     </script>
     <div id="main" class="main">

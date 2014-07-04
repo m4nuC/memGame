@@ -103,10 +103,6 @@
 
             }
         );
-
-        // Return the event object. This event object may have
-        // been augmented by any one of the subsrcibers.
-        return( event );
     };
 
 
