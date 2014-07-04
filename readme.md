@@ -1,25 +1,24 @@
-## Laravel PHP Framework
+## COLOR MEMORY
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Live Demo [here](http://stage.nota.io/)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+### Installation
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+- Clone this repositary
+- Install [Composer](https://getcomposer.org/doc/00-intro.md)
+- In the terminal, go to the root of the project. (If you didn't change the repo name it should be called accedoMemGame)
+- Run `sudo composer install` (This should take about 10 minutes)
+- Run `sudo chmod -R 777 app/storage`.
+- Open `app/config/database.php` and at `line 57` change database credentials according to your local configuration.
+- From the terminal run: "php artisan migrate".
+- From the terminal run: "php artisan serve".
+- Open a browser and go to [http://localhost:8000/](http://localhost:8000/) to play.
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
 
-## Official Documentation
+## Requirements
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+- PHP 5.4+
+- MYSQL
+- NodeJS (For development). Note: All node modules are included in the repo for easier deployments
 
-### Contributing To Laravel
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
-
-### License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

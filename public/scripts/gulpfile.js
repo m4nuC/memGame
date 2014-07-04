@@ -53,4 +53,4 @@ gulp.task('beforeBuild', function () {
 
 
 gulp.task('dev',['watchCSS', 'watchJS' ]);
-
+gulp.task('build', ['beforeBuild', 'sass', 'browserify']);
