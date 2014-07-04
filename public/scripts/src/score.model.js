@@ -32,9 +32,9 @@ var scoreModel = (function(DOMlib) {
             return this;
         },
 
-        _isHighScore: function( score ) {
+        isHighScore: function( score ) {
             var l = this.highScores.length;
-            return this.highScores[l-1] <= score;
+            return this.highScores[l-1].points <= score;
         },
 
         addHighScore: function(name, score) {

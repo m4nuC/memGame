@@ -99,12 +99,12 @@ var game = (function() {
         },
 
         _gameCompleted: function() {
-            var newGame = confirm('Well done Sir!\nDo you wanna go again?');
-            newGame && this._restartGame();
-        },
-
-        _isHighScore: function() {
-            _scores.isHighScore(this.score) && this._newHighScore();
+            if ( _scores.isHighScore(this.score) ) {
+                this._newHighScore();
+            } else {
+                var newGame = confirm('Well done!\nDo you wanna go again?');
+                newGame && this._restartGame();
+            }
         },
 
         _newHighScore: function() {
@@ -112,7 +112,11 @@ var game = (function() {
             _scores
                 .addHighScore(name, this.score)
                 .save()
-                .then( this._populatScores );
+                .then( this._populatScores )
+                .then( function() {
+                    var newGame = confirm('One More?');
+                    newGame && this._restartGame();
+                }.bind(this));
         }
     }
 })();
